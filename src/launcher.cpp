@@ -16,17 +16,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QApplication>
-#include <iostream>
-
 #include <include/launcher.h>
 
-int main(int argc, char **argv)
+Launcher::Launcher(QWidget *parent) : QWidget(parent)
 {
-    QApplication app(argc, argv);
-
-    Launcher launcher;
-    launcher.show();
-
-    return app.exec();
+    setupUi(this);
 }

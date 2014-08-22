@@ -16,17 +16,17 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QApplication>
-#include <iostream>
+#ifndef LAUNCHER_H
+#define LAUNCHER_H
 
-#include <include/launcher.h>
+#include "ui/ui_launcher.h"
 
-int main(int argc, char **argv)
+class Launcher : public QWidget, private Ui::Launcher
 {
-    QApplication app(argc, argv);
+    Q_OBJECT
 
-    Launcher launcher;
-    launcher.show();
+public:
+    Launcher(QWidget *parent = 0);
+};
 
-    return app.exec();
-}
+#endif // LAUNCHER_H

@@ -23,16 +23,16 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
-#include "sessionmanager.h"
-#include "settings.h"
+#include <include/sessions/sessionmanager.h>
+#include <include/util/settings.h>
 
 class LoginService : public QObject
 {
     Q_OBJECT
 
 public:
-    LoginService(QObject *parent = 0);
-    LoginService(SessionManager *sessionManager, Settings *configuration, QObject *parent = 0);
+    LoginService(QObject *parent = nullptr);
+    LoginService(SessionManager *sessionManager, Settings *configuration, QObject *parent = nullptr);
     ~LoginService();
 
 public:

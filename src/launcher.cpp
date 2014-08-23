@@ -16,9 +16,42 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <include/globals.h>
 #include <include/launcher.h>
 
 Launcher::Launcher(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
+
+    _downloader = new Downloader;
+    _config = new Settings(CONFIGURATION_DIR + "/config.ini");
+
+    checkConfig();
+
+    _sessionManager = new SessionManager(_config->value("general", "sessionsPath").toString());
+    _loginService = new LoginService(_sessionManager, _config);
+
+    availableModpack->addItem("Minecraft classic");
+    connect(availableModpack, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(launching(QListWidgetItem*)));
+
+    connect(launch, SIGNAL(clicked()), this, SLOT(launching()));
+}
+
+Launcher::~Launcher()
+{
+    delete _loginService;
+    delete _sessionManager;
+    delete _config;
+    delete _downloader;
+}
+
+void Launcher::checkConfig()
+{
+    // General configuration
+    if (!_config->contains("general/sessionsPath"))
+        _config->setValue("general", "sessionsPath", QVariant(SESSIONS_DIR + "/sessions.dat"));
+}
+
+void Launcher::launching(QListWidgetItem *item)
+{
 }

@@ -30,8 +30,8 @@ class SessionManager : public QObject
     Q_OBJECT
 
 public:
-    SessionManager(QObject *parent = 0);
-    SessionManager(const QString &sessionsPath, QObject *parent = 0);
+    SessionManager(QObject *parent = nullptr);
+    SessionManager(const QString &sessionsPath, QObject *parent = nullptr);
     ~SessionManager();
 
 public:
@@ -41,8 +41,22 @@ public:
     void addSession(Session *session);
     void removeSession(const QString &key);
 
+public:
+    Session *activeSession() const;
+    QString sessionPath() const;
+    void setSessionPath(const QString &path);
+
+public slots:
+    void read();
+    void save();
+
+    void setActiveSession(const QString &name);
+    void unsetActiveSession();
+
 private:
     QMap<QString, Session*> _sessions;
+    QString _sessionsPath;
+    Session *_activeSession;
 };
 
 #endif // SESSIONMANAGER_H

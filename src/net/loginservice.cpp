@@ -20,8 +20,8 @@
 #include <QJsonObject>
 #include <QNetworkRequest>
 
-#include <include/loginservice.h>
 #include <include/globals.h>
+#include <include/net/loginservice.h>
 
 LoginService::LoginService(QObject *parent) : QObject(parent),
     _sessionManager(0),

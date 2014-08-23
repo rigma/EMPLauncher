@@ -30,7 +30,7 @@ class Downloader : public QObject
     Q_OBJECT
 
 public:
-    Downloader(QObject *parent = 0);
+    Downloader(QObject *parent = nullptr);
     ~Downloader();
 
 public:

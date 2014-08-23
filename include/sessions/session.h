@@ -30,8 +30,8 @@ class Session : public QObject
 public:
     Session(QObject *parent = 0);
     Session(Session *session, QObject *parent = 0);
-    Session(const QJsonObject &json, QObject *parent = 0);
-    Session(const QString &accessToken, const QString &clientToken, const QString &uuid, const QString &name, const bool &legacy, QObject *parent = 0);
+    Session(const QJsonObject &json, const bool &offline = true, QObject *parent = 0);
+    Session(const QString &accessToken, const QString &clientToken, const QString &uuid, const QString &name, const bool &legacy, const bool &offline = true, QObject *parent = 0);
     ~Session();
 
 public:
@@ -40,6 +40,7 @@ public:
     QUuid uuid() const;
     QString name() const;
     bool legacy() const;
+    bool isOffline() const;
 
 public:
     void setAccessToken(const QString &accessToken);
@@ -47,6 +48,8 @@ public:
     void setUuid(const QString &uuid);
     void setName(const QString &name);
     void setLegacy(const bool &legacy);
+    void setActive(const bool &active);
+    void setOffline(const bool &offline);
 
 private:
     QUuid _accessToken;
@@ -54,6 +57,7 @@ private:
     QUuid _uuid;
     QString _name;
     bool _legacy;
+    bool _offline;
 };
 
 #endif // SESSION_H

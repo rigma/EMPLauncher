@@ -17,14 +17,37 @@
  */
 
 #include <QApplication>
+#include <QDir>
+
 #include <iostream>
 
+#include <include/globals.h>
 #include <include/launcher.h>
 
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
 
+    // On va d'abord vérifier si le dossier de l'application à la bonne arborescence
+    if (!QDir().exists(ASSETS_DIR))
+        QDir().mkdir(ASSETS_DIR);
+
+    if (!QDir().exists(CONFIGURATION_DIR))
+        QDir().mkdir(CONFIGURATION_DIR);
+
+    if (!QDir().exists(LIBRARIES_DIR))
+        QDir().mkdir(LIBRARIES_DIR);
+
+    if (!QDir().exists(SESSIONS_DIR))
+        QDir().mkdir(SESSIONS_DIR);
+
+    if (!QDir().exists(DOWNLOAD_DIR))
+        QDir().mkdir(DOWNLOAD_DIR);
+
+    if (!QDir().exists(VERSIONS_DIR))
+        QDir().mkdir(VERSIONS_DIR);
+
+    // On lance la fenêtre principale
     Launcher launcher;
     launcher.show();
 

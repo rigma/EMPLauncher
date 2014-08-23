@@ -17,7 +17,7 @@
  */
 
 #include <include/globals.h>
-#include <include/downloader.h>
+#include <include/net/downloader.h>
 
 #include <QFile>
 #include <QNetworkRequest>
@@ -59,9 +59,17 @@ void Downloader::get(const QList<QUrl> &urls)
     }
 }
 
+void Downloader::post(const QUrl &url, const QByteArray &data)
+{
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::UserAgentHeader, QVariant(USER_AGENT));
+
+    _manager->post(request, data);
+}
+
 void Downloader::manageReply(QNetworkReply *reply)
 {
-    QFile f(DOWNLOAD_PATH + "/" + reply->url().fileName());
+    QFile f(DOWNLOAD_DIR + "/" + reply->url().fileName());
 
     if (reply->error() == QNetworkReply::NoError)
     {

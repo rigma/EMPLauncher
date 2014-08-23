@@ -19,7 +19,13 @@
 #ifndef LAUNCHER_H
 #define LAUNCHER_H
 
+#include <QListWidgetItem>
+
+#include "net/downloader.h"
+#include "net/loginservice.h"
+#include "sessions/sessionmanager.h"
 #include "ui/ui_launcher.h"
+#include "util/settings.h"
 
 class Launcher : public QWidget, private Ui::Launcher
 {
@@ -27,6 +33,19 @@ class Launcher : public QWidget, private Ui::Launcher
 
 public:
     Launcher(QWidget *parent = 0);
+    ~Launcher();
+
+public:
+    void checkConfig();
+
+private slots:
+    void launching(QListWidgetItem *item = nullptr);
+
+private:
+    Downloader *_downloader;
+    LoginService *_loginService;
+    SessionManager *_sessionManager;
+    Settings *_config;
 };
 
 #endif // LAUNCHER_H

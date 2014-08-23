@@ -27,8 +27,8 @@ class Settings : public QSettings
     Q_OBJECT
 
 public:
-    Settings(QObject *parent = 0);
-    Settings(const QString &fileName, QSettings::Format format, QObject *parent = 0);
+    Settings(QObject *parent = nullptr);
+    Settings(const QString &fileName, QSettings::Format format = QSettings::IniFormat, QObject *parent = nullptr);
     ~Settings();
 
 public:
@@ -36,7 +36,7 @@ public:
     QVariant value(const QString &group, const QString &key, const QVariant &defaultValue = QVariant());
 
 public:
-    void json(const QJsonObject &jsonObject);
+    void fromJson(const QJsonObject &jsonObject);
     QJsonObject toJson(bool save = false);
 
 protected:

@@ -17,18 +17,18 @@
  */
 
 #include <include/globals.h>
-#include <include/settings.h>
+#include <include/util/settings.h>
 
 #include <QFile>
 #include <QJsonDocument>
 
-Settings::Settings(QObject *parent) : QSettings(parent),
-    _fileName("config")
+Settings::Settings(QObject *parent) : QSettings(CONFIGURATION_DIR + "/config.ini", QSettings::IniFormat, parent),
+    _fileName(CONFIGURATION_DIR + "/config.ini")
 {
 
 }
 
-Settings::Settings(const QString &fileName, QSettings::Format format, QObject *parent) : QSettings(fileName + ".ini", format, parent),
+Settings::Settings(const QString &fileName, QSettings::Format format, QObject *parent) : QSettings(fileName, format, parent),
     _fileName(fileName)
 {
 
@@ -61,7 +61,7 @@ QVariant Settings::value(const QString &group, const QString &key, const QVarian
     return result;
 }
 
-void Settings::json(const QJsonObject &jsonObject)
+void Settings::fromJson(const QJsonObject &jsonObject)
 {
     QMap<QString, QVariant> map(jsonObject.toVariantMap());
 
@@ -71,7 +71,7 @@ void Settings::json(const QJsonObject &jsonObject)
 
 QJsonObject Settings::toJson(bool save)
 {
-    QFile f(QStringLiteral(CONFIGURATION_PATH) + "/" + _fileName + ".ini");
+    QFile f(CONFIGURATION_DIR + "/" + _fileName + ".json");
 
     QJsonDocument doc;
     QJsonObject json;

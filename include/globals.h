@@ -22,17 +22,13 @@
 #include <QtGlobal>
 #include <QCoreApplication>
 
-#ifdef Q_OS_WIN
-
-#define CONFIGURATION_PATH "%appdata%/EMP"
-
-#elif Q_OS_LINUX | Q_OS_UNIX
-
-#define CONFIGURATION_PATH "/etc/EMP"
-
-#endif
-
-#define DOWNLOAD_PATH QCoreApplication::applicationDirPath() + "/tmp"
 #define USER_AGENT "Qt/EMPLauncher 1.0"
+
+#define ASSETS_DIR        QCoreApplication::applicationDirPath() + "/assets"
+#define CONFIGURATION_DIR QCoreApplication::applicationDirPath() + "/etc"
+#define LIBRARIES_DIR     QCoreApplication::applicationDirPath() + "/libraries"
+#define SESSIONS_DIR      QCoreApplication::applicationDirPath() + "/sessions"
+#define DOWNLOAD_DIR      QCoreApplication::applicationDirPath() + "/tmp"
+#define VERSIONS_DIR      QCoreApplication::applicationDirPath() + "/versions"
 
 #endif // GENERAL_H

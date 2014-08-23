@@ -16,7 +16,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <include/session.h>
+#include <include/sessions/session.h>
 
 #include <QVariant>
 
@@ -32,13 +32,14 @@ Session::Session(QObject *parent) : QObject(parent),
 
 Session::Session(Session *session, QObject *parent) : QObject(parent)
 {
-    if (session != 0)
+    if (session != nullptr)
     {
         _accessToken = session->_accessToken;
         _clientToken = session->_clientToken;
         _uuid = session->_uuid;
         _name = session->_name;
         _legacy = session->_legacy;
+        _offline = session->_offline;
     }
     else
     {
@@ -47,10 +48,12 @@ Session::Session(Session *session, QObject *parent) : QObject(parent)
         _uuid = QUuid();
         _name = QString();
         _legacy = false;
+        _offline = true;
     }
 }
 
-Session::Session(const QJsonObject &json, QObject *parent) : QObject(parent)
+Session::Session(const QJsonObject &json, const bool &offline, QObject *parent) : QObject(parent),
+    _offline(offline)
 {
     QJsonObject selectedProfile;
 
@@ -73,12 +76,13 @@ Session::Session(const QJsonObject &json, QObject *parent) : QObject(parent)
     }
 }
 
-Session::Session(const QString &accessToken, const QString &clientToken, const QString &uuid, const QString &name, const bool &legacy, QObject *parent) : QObject(parent),
+Session::Session(const QString &accessToken, const QString &clientToken, const QString &uuid, const QString &name, const bool &legacy, const bool &offline, QObject *parent) : QObject(parent),
     _accessToken(accessToken),
     _clientToken(clientToken),
     _uuid(uuid),
     _name(name),
-    _legacy(legacy)
+    _legacy(legacy),
+    _offline(offline)
 {
 
 }

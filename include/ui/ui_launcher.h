@@ -10,6 +10,7 @@
 #define UI_LAUNCHER_H
 
 #include <QtCore/QVariant>
+#include <QtWebKitWidgets/QWebView>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
@@ -31,7 +32,7 @@ public:
     QVBoxLayout *mainLayout;
     QHBoxLayout *lists;
     QListWidget *availableModpack;
-    QListWidget *news;
+    QWebView *webView;
     QHBoxLayout *controls;
     QSpacerItem *horizontalSpacer;
     QCheckBox *forceUpdate;
@@ -64,10 +65,16 @@ public:
 
         lists->addWidget(availableModpack);
 
-        news = new QListWidget(verticalLayoutWidget);
-        news->setObjectName(QStringLiteral("news"));
+        webView = new QWebView(verticalLayoutWidget);
+        webView->setObjectName(QStringLiteral("webView"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(webView->sizePolicy().hasHeightForWidth());
+        webView->setSizePolicy(sizePolicy1);
+        webView->setUrl(QUrl(QStringLiteral("about:blank")));
 
-        lists->addWidget(news);
+        lists->addWidget(webView);
 
 
         mainLayout->addLayout(lists);
@@ -80,19 +87,19 @@ public:
 
         forceUpdate = new QCheckBox(verticalLayoutWidget);
         forceUpdate->setObjectName(QStringLiteral("forceUpdate"));
-        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(forceUpdate->sizePolicy().hasHeightForWidth());
-        forceUpdate->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(forceUpdate->sizePolicy().hasHeightForWidth());
+        forceUpdate->setSizePolicy(sizePolicy2);
         forceUpdate->setLayoutDirection(Qt::LeftToRight);
 
         controls->addWidget(forceUpdate, 0, Qt::AlignRight);
 
         launch = new QPushButton(verticalLayoutWidget);
         launch->setObjectName(QStringLiteral("launch"));
-        sizePolicy1.setHeightForWidth(launch->sizePolicy().hasHeightForWidth());
-        launch->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(launch->sizePolicy().hasHeightForWidth());
+        launch->setSizePolicy(sizePolicy2);
         QFont font;
         font.setBold(true);
         font.setWeight(75);
@@ -103,8 +110,8 @@ public:
 
         pushButton = new QPushButton(verticalLayoutWidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        sizePolicy1.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
-        pushButton->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
+        pushButton->setSizePolicy(sizePolicy2);
 
         controls->addWidget(pushButton, 0, Qt::AlignRight);
 
@@ -120,8 +127,8 @@ public:
     void retranslateUi(QWidget *Launcher)
     {
         Launcher->setWindowTitle(QApplication::translate("Launcher", "EMP Launcher", 0));
-        forceUpdate->setText(QApplication::translate("Launcher", "Forcer la mise \303\240 jour", 0));
-        launch->setText(QApplication::translate("Launcher", "Lancer", 0));
+        forceUpdate->setText(QApplication::translate("Launcher", "Force update", 0));
+        launch->setText(QApplication::translate("Launcher", "Launch", 0));
         pushButton->setText(QApplication::translate("Launcher", "Options", 0));
     } // retranslateUi
 

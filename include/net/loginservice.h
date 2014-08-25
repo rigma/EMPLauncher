@@ -22,9 +22,9 @@
 #include <QJsonDocument>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QSettings>
 
 #include <include/sessions/sessionmanager.h>
-#include <include/util/settings.h>
 
 class LoginService : public QObject
 {
@@ -32,7 +32,7 @@ class LoginService : public QObject
 
 public:
     LoginService(QObject *parent = nullptr);
-    LoginService(SessionManager *sessionManager, Settings *configuration, QObject *parent = nullptr);
+    LoginService(SessionManager *sessionManager, QSettings *configuration, QObject *parent = nullptr);
     ~LoginService();
 
 public:
@@ -48,8 +48,8 @@ signals:
 
 private:
     QNetworkAccessManager *_manager;
+    QSettings *_configuration;
     SessionManager *_sessionManager;
-    Settings *_configuration;
 };
 
 #endif // LOGINSERVICE_H

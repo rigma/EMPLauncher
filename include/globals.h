@@ -24,11 +24,17 @@
 
 #define USER_AGENT "Qt/EMPLauncher 1.0"
 
-#define ASSETS_DIR        QCoreApplication::applicationDirPath() + "/assets"
-#define CONFIGURATION_DIR QCoreApplication::applicationDirPath() + "/etc"
-#define LIBRARIES_DIR     QCoreApplication::applicationDirPath() + "/libraries"
-#define SESSIONS_DIR      QCoreApplication::applicationDirPath() + "/sessions"
-#define DOWNLOAD_DIR      QCoreApplication::applicationDirPath() + "/tmp"
-#define VERSIONS_DIR      QCoreApplication::applicationDirPath() + "/versions"
+#define BIN_DIR           QCoreApplication::applicationDirPath() + "/bin"
+#define ETC_DIR           QCoreApplication::applicationDirPath() + "/etc"
+#define LIB_DIR           QCoreApplication::applicationDirPath() + "/lib"
+#define SHARE_DIR         QCoreApplication::applicationDirPath() + "/share"
+#define TMP_DIR           QCoreApplication::applicationDirPath() + "/tmp"
+
+#define ASSETS_DIR        SHARE_DIR + "/assets"
+#define CONFIGURATION_DIR ETC_DIR
+#define MODPACKS_DIR      SHARE_DIR + "/modpacks"
+#define SESSIONS_DIR      SHARE_DIR + "/sessions"
+#define DOWNLOAD_DIR      TMP_DIR + "/downloads"
+#define VERSIONS_DIR      BIN_DIR + "/versions"
 
 #endif // GENERAL_H

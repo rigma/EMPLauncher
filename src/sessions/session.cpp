@@ -16,9 +16,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <include/sessions/session.h>
-
 #include <QVariant>
+
+#include <include/sessions/session.h>
 
 Session::Session(QObject *parent) : QObject(parent),
     _accessToken(),

@@ -16,11 +16,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <include/globals.h>
-#include <include/net/downloader.h>
-
 #include <QFile>
 #include <QNetworkRequest>
+
+#include <include/globals.h>
+#include <include/net/downloader.h>
 
 Downloader::Downloader(QObject *parent) : QObject(parent)
 {

@@ -24,32 +24,67 @@
 #include <include/globals.h>
 #include <include/launcher.h>
 
+void initFilesystem();
+
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
 
-    // On va d'abord vérifier si le dossier de l'application à la bonne arborescence
-    if (!QDir().exists(ASSETS_DIR))
-        QDir().mkdir(ASSETS_DIR);
-
-    if (!QDir().exists(CONFIGURATION_DIR))
-        QDir().mkdir(CONFIGURATION_DIR);
-
-    if (!QDir().exists(LIBRARIES_DIR))
-        QDir().mkdir(LIBRARIES_DIR);
-
-    if (!QDir().exists(SESSIONS_DIR))
-        QDir().mkdir(SESSIONS_DIR);
-
-    if (!QDir().exists(DOWNLOAD_DIR))
-        QDir().mkdir(DOWNLOAD_DIR);
-
-    if (!QDir().exists(VERSIONS_DIR))
-        QDir().mkdir(VERSIONS_DIR);
+    // First, we'll init the launcher's filesystem
+    initFilesystem();
 
     // On lance la fenêtre principale
     Launcher launcher;
     launcher.show();
 
     return app.exec();
+}
+
+void initFilesystem()
+{
+    QDir dir;
+
+    // We will check the main filesystem before anything else
+    if (!dir.exists(BIN_DIR))
+        dir.mkdir(BIN_DIR);
+
+    if (!dir.exists(ETC_DIR))
+        dir.mkdir(ETC_DIR);
+
+    if (!dir.exists(LIB_DIR))
+        dir.mkdir(LIB_DIR);
+
+    if (!dir.exists(SHARE_DIR))
+        dir.mkdir(SHARE_DIR);
+
+    if (!dir.mkdir(TMP_DIR))
+        dir.mkdir(TMP_DIR);
+
+    // Then, we will check the others paths of the launcher
+    if (!dir.exists(ASSETS_DIR))
+        dir.mkdir(ASSETS_DIR);
+
+    if (!dir.exists(CONFIGURATION_DIR))
+        dir.mkdir(CONFIGURATION_DIR);
+
+    if (!dir.exists(MODPACKS_DIR))
+        dir.mkdir(MODPACKS_DIR);
+
+    if (!dir.exists(SESSIONS_DIR))
+        dir.mkdir(SESSIONS_DIR);
+
+    if (!dir.exists(DOWNLOAD_DIR))
+        dir.mkdir(DOWNLOAD_DIR);
+
+    if (!dir.exists(VERSIONS_DIR))
+        dir.mkdir(VERSIONS_DIR);
+
+    // Finally, we will clean the /tmp directory
+    dir.setPath(TMP_DIR);
+    for (QString fileName : dir.entryList(QDir::Files | QDir::NoDotAndDotDot))
+        dir.remove(dir.absoluteFilePath(fileName));
+
+    dir.setPath(DOWNLOAD_DIR);
+    for (QString fileName : dir.entryList(QDir::Files | QDir::NoDotAndDotDot))
+        dir.remove(dir.absoluteFilePath(fileName));
 }

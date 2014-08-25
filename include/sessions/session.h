@@ -28,10 +28,10 @@ class Session : public QObject
     Q_OBJECT
 
 public:
-    Session(QObject *parent = 0);
-    Session(Session *session, QObject *parent = 0);
-    Session(const QJsonObject &json, const bool &offline = true, QObject *parent = 0);
-    Session(const QString &accessToken, const QString &clientToken, const QString &uuid, const QString &name, const bool &legacy, const bool &offline = true, QObject *parent = 0);
+    Session(QObject *parent = nullptr);
+    Session(Session *session, QObject *parent = nullptr);
+    Session(const QJsonObject &json, const bool &offline = true, QObject *parent = nullptr);
+    Session(const QString &accessToken, const QString &clientToken, const QString &uuid, const QString &name, const bool &legacy, const bool &offline = true, QObject *parent = nullptr);
     ~Session();
 
 public:

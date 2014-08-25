@@ -20,19 +20,20 @@
 #define LAUNCHER_H
 
 #include <QListWidgetItem>
+#include <QSettings>
 
+#include "modpacks/modpackmanager.h"
 #include "net/downloader.h"
 #include "net/loginservice.h"
 #include "sessions/sessionmanager.h"
 #include "ui/ui_launcher.h"
-#include "util/settings.h"
 
 class Launcher : public QWidget, private Ui::Launcher
 {
     Q_OBJECT
 
 public:
-    Launcher(QWidget *parent = 0);
+    Launcher(QWidget *parent = nullptr);
     ~Launcher();
 
 public:
@@ -44,8 +45,9 @@ private slots:
 private:
     Downloader *_downloader;
     LoginService *_loginService;
+    ModpackManager *_modpackManager;
     SessionManager *_sessionManager;
-    Settings *_config;
+    QSettings *_config;
 };
 
 #endif // LAUNCHER_H

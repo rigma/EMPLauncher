@@ -24,16 +24,16 @@
 #include <include/net/loginservice.h>
 
 LoginService::LoginService(QObject *parent) : QObject(parent),
-    _sessionManager(0),
-    _configuration(0)
+    _configuration(0),
+    _sessionManager(0)
 {
     _manager = new QNetworkAccessManager(this);
     connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(manageReply(QNetworkReply*)));
 }
 
-LoginService::LoginService(SessionManager *sessionManager, Settings *configuration, QObject *parent) : QObject(parent),
-    _sessionManager(sessionManager),
-    _configuration(configuration)
+LoginService::LoginService(SessionManager *sessionManager, QSettings *configuration, QObject *parent) : QObject(parent),
+    _configuration(configuration),
+    _sessionManager(sessionManager)
 {
     _manager = new QNetworkAccessManager(this);
     connect(_manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(manageReply(QNetworkReply*)));

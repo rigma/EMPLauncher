@@ -1,4 +1,4 @@
-QT += core gui widgets network
+QT += core gui widgets webkitwidgets network
 CONFIG += c++11
 
 OBJECTS_DIR = obj
@@ -14,8 +14,9 @@ HEADERS += \
     include/net/loginservice.h \
     include/sessions/session.h \
     include/sessions/sessionmanager.h \
-    include/util/settings.h \
-    include/util/listitem.h
+    include/util/listitem.h \
+    include/modpacks/modpack.h \
+    include/modpacks/modpackmanager.h
 
 SOURCES += \
     main.cpp \
@@ -24,7 +25,10 @@ SOURCES += \
     src/net/loginservice.cpp \
     src/sessions/session.cpp \
     src/sessions/sessionmanager.cpp \
-    src/util/settings.cpp
+    src/modpacks/modpack.cpp \
+    src/modpacks/modpackmanager.cpp \
+    src/util/listitem.cpp
 
 FORMS += \
-    ui/launcher.ui
+    ui/launcher.ui \
+    ui/login.ui

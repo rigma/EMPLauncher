@@ -16,7 +16,8 @@ HEADERS += \
     include/sessions/sessionmanager.h \
     include/util/listitem.h \
     include/modpacks/modpack.h \
-    include/modpacks/modpackmanager.h
+    include/modpacks/modpackmanager.h \
+    include/util/jsonsettings.h
 
 SOURCES += \
     main.cpp \
@@ -27,7 +28,8 @@ SOURCES += \
     src/sessions/sessionmanager.cpp \
     src/modpacks/modpack.cpp \
     src/modpacks/modpackmanager.cpp \
-    src/util/listitem.cpp
+    src/util/listitem.cpp \
+    src/util/jsonsettings.cpp
 
 FORMS += \
     ui/launcher.ui \

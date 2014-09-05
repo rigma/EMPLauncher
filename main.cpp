@@ -46,38 +46,44 @@ void initFilesystem()
 
     // We will check the main filesystem before anything else
     if (!dir.exists(BIN_DIR))
-        dir.mkdir(BIN_DIR);
+        dir.mkpath(BIN_DIR);
 
     if (!dir.exists(ETC_DIR))
-        dir.mkdir(ETC_DIR);
+        dir.mkpath(ETC_DIR);
 
     if (!dir.exists(LIB_DIR))
-        dir.mkdir(LIB_DIR);
+        dir.mkpath(LIB_DIR);
 
     if (!dir.exists(SHARE_DIR))
-        dir.mkdir(SHARE_DIR);
+        dir.mkpath(SHARE_DIR);
 
-    if (!dir.mkdir(TMP_DIR))
-        dir.mkdir(TMP_DIR);
+    if (!dir.exists(TMP_DIR))
+        dir.mkpath(TMP_DIR);
 
     // Then, we will check the others paths of the launcher
     if (!dir.exists(ASSETS_DIR))
-        dir.mkdir(ASSETS_DIR);
+    {
+        dir.mkpath(ASSETS_DIR);
+        dir.mkpath(ASSETS_DIR + "/indexes");
+        dir.mkpath(ASSETS_DIR + "/objects");
+        dir.mkpath(ASSETS_DIR + "/skins");
+        dir.mkpath(ASSETS_DIR + "/virtual");
+     }
 
     if (!dir.exists(CONFIGURATION_DIR))
-        dir.mkdir(CONFIGURATION_DIR);
+        dir.mkpath(CONFIGURATION_DIR);
 
     if (!dir.exists(MODPACKS_DIR))
-        dir.mkdir(MODPACKS_DIR);
+        dir.mkpath(MODPACKS_DIR);
 
     if (!dir.exists(SESSIONS_DIR))
-        dir.mkdir(SESSIONS_DIR);
+        dir.mkpath(SESSIONS_DIR);
 
     if (!dir.exists(DOWNLOAD_DIR))
-        dir.mkdir(DOWNLOAD_DIR);
+        dir.mkpath(DOWNLOAD_DIR);
 
     if (!dir.exists(VERSIONS_DIR))
-        dir.mkdir(VERSIONS_DIR);
+        dir.mkpath(VERSIONS_DIR);
 
     // Finally, we will clean the /tmp directory
     dir.setPath(TMP_DIR);

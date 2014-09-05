@@ -57,10 +57,6 @@ QString Modpack::name() const
     return _name;
 }
 
-QString Modpack::icon() const
-{
-    return _doc.object().value("icon").toString();
-}
 QString Modpack::fullName() const
 {
     return _doc.object().value("fullName").toString();
@@ -71,11 +67,6 @@ QString Modpack::website() const
     return _doc.object().value("website").toString();
 }
 
-QString Modpack::background() const
-{
-    return _doc.object().value("background").toString();
-}
-
 QStringList Modpack::authors() const
 {
     QStringList result;
@@ -84,6 +75,26 @@ QStringList Modpack::authors() const
         result.append(author.toString());
 
     return result;
+}
+
+QString Modpack::version() const
+{
+    return _doc.object().value("version").toString();
+}
+
+QString Modpack::minecraftVersion() const
+{
+    return _doc.object().value("minecraftVersion").toString();
+}
+
+QString Modpack::icon() const
+{
+    return _doc.object().value("icon").toString();
+}
+
+QString Modpack::background() const
+{
+    return _doc.object().value("background").toString();
 }
 
 QMap<QString, QString> Modpack::mods() const

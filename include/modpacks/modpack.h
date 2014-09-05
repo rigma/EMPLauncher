@@ -37,11 +37,13 @@ public:
 
 public:
     QString name() const;
-    QString icon() const;
     QString fullName() const;
     QString website() const;
-    QString background() const;
     QStringList authors() const;
+    QString version() const;
+    QString minecraftVersion() const;
+    QString icon() const;
+    QString background() const;
     QMap<QString, QString> mods() const;
 
 private:

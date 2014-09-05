@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>EMP Launcher</string>
   </property>
+  <property name="locale">
+   <locale language="English" country="UnitedKingdom"/>
+  </property>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
@@ -63,6 +66,13 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="controls">
+      <item>
+       <widget class="QPushButton" name="changeAccount">
+        <property name="text">
+         <string>Change Account</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">

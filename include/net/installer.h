@@ -16,38 +16,30 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MODPACKMANAGER_H
-#define MODPACKMANAGER_H
+#ifndef INSTALLER_H
+#define INSTALLER_H
 
-#include <QList>
+#include <QDir>
 #include <QObject>
 
-#include "modpack.h"
+#include "downloader.h"
 
-class ModpackManager : public QObject
+class Installer : public QObject
 {
     Q_OBJECT
 
 public:
-    ModpackManager(QObject *parent = nullptr);
-    ModpackManager(const QString &modpackDir, QObject *parent = nullptr);
-    ~ModpackManager();
+    Installer(QObject *parent = nullptr);
+    ~Installer();
 
 public:
-    Modpack *modpack(const QString &name) const;
-    QString getModpackSettings(const QString &name) const;
-    QString getModpackPresentation(const QString &name) const;
-
-public:
-    QString modpackDir() const;
-    void setModpackDir(const QString &modpackDir);
-
-public slots:
-    void addModpack(QString name);
+    void install(const QString &modpackName, const QString &minecraftVersion);
 
 private:
-    QList<Modpack*> _modpacks;
-    QString _modpackDir;
+    void installMinecraft(const QString &version);
+
+private:
+    Downloader *_downloader;
 };
 
-#endif // MODPACKMANAGER_H
+#endif // INSTALLER_H

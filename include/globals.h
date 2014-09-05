@@ -22,7 +22,7 @@
 #include <QtGlobal>
 #include <QCoreApplication>
 
-#define USER_AGENT "Qt/EMPLauncher 1.0"
+#define USER_AGENT        "Qt/EMPLauncher 1.0"
 
 #define BIN_DIR           QCoreApplication::applicationDirPath() + "/bin"
 #define ETC_DIR           QCoreApplication::applicationDirPath() + "/etc"

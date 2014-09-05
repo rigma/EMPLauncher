@@ -23,7 +23,7 @@
 #include <QSettings>
 
 #include "modpacks/modpackmanager.h"
-#include "net/downloader.h"
+#include "net/installer.h"
 #include "net/loginservice.h"
 #include "sessions/sessionmanager.h"
 #include "ui/ui_launcher.h"
@@ -39,11 +39,18 @@ public:
 public:
     void checkConfig();
 
+public:
+    Installer *installer();
+    LoginService *loginService();
+    ModpackManager *modpackManager();
+    SessionManager *sessionManager();
+    QSettings *config();
+
 private slots:
     void launching(QListWidgetItem *item = nullptr);
 
 private:
-    Downloader *_downloader;
+    Installer *_installer;
     LoginService *_loginService;
     ModpackManager *_modpackManager;
     SessionManager *_sessionManager;

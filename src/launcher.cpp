@@ -23,18 +23,16 @@ Launcher::Launcher(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
 
-    _downloader = new Downloader;
-    _config = new QSettings(CONFIGURATION_DIR + "/config.ini");
+    _installer = new Installer(this);
+    _config = new QSettings(CONFIGURATION_DIR + "/config.ini", QSettings::IniFormat, this);
 
     checkConfig();
 
-    _modpackManager = new ModpackManager(_config->value("general/modpacksPath").toString());
-    _sessionManager = new SessionManager(_config->value("general/sessionsPath").toString());
-    _loginService = new LoginService(_sessionManager, _config);
+    _modpackManager = new ModpackManager(_config->value("general/modpacksPath").toString(), this);
+    _sessionManager = new SessionManager(_config->value("general/sessionsPath").toString(), this);
+    _loginService = new LoginService(_sessionManager, _config, this);
 
-    availableModpack->addItem("Minecraft classic");
     connect(availableModpack, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(launching(QListWidgetItem*)));
-
     connect(launch, SIGNAL(clicked()), this, SLOT(launching()));
 }
 
@@ -44,7 +42,7 @@ Launcher::~Launcher()
     delete _modpackManager;
     delete _sessionManager;
     delete _config;
-    delete _downloader;
+    delete _installer;
 }
 
 void Launcher::checkConfig()
@@ -56,6 +54,32 @@ void Launcher::checkConfig()
     if (!_config->contains("general/sessionsPath"))
         _config->setValue("general/sessionsPath", QVariant(SESSIONS_DIR + "/sessions.dat"));
 }
+
+Installer *Launcher::installer()
+{
+    return _installer;
+}
+
+LoginService *Launcher::loginService()
+{
+    return _loginService;
+}
+
+ModpackManager *Launcher::modpackManager()
+{
+    return _modpackManager;
+}
+
+SessionManager *Launcher::sessionManager()
+{
+    return _sessionManager;
+}
+
+QSettings *Launcher::config()
+{
+    return _config;
+}
+
 
 void Launcher::launching(QListWidgetItem *item)
 {

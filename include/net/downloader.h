@@ -20,10 +20,13 @@
 #define DOWNLOADER_H
 
 #include <QList>
+#include <QMap>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QObject>
 #include <QUrl>
+
+#include <globals.h>
 
 class Downloader : public QObject
 {
@@ -34,15 +37,23 @@ public:
     ~Downloader();
 
 public:
-    void get(const QUrl &url);
-    void get(const QList<QUrl> &urls);
-    void post(const QUrl &url, const QByteArray &data);
+    QNetworkAccessManager *manager();
+
+public:
+    void get(const QUrl &url, const QString &destPath = QString(DOWNLOAD_DIR));
+    void get(const QList<QUrl> &urls, const QStringList &destPaths = QStringList(DOWNLOAD_DIR));
+    void post(const QUrl &url, const QByteArray &data, const QString &destPath = QString(DOWNLOAD_DIR));
 
 private slots:
     void manageReply(QNetworkReply *reply);
 
 private:
+    QMap<QString, QString> _downloads;
     QNetworkAccessManager *_manager;
+
+signals:
+    void downloadFailed(QNetworkReply *reply);
+    void downloadFinished(const QString &path);
 };
 
 #endif // DOWNLOADER_H

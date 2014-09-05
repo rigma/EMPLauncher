@@ -16,13 +16,15 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QDir>
 #include <QFile>
 #include <QNetworkRequest>
 
 #include <include/globals.h>
 #include <include/net/downloader.h>
 
-Downloader::Downloader(QObject *parent) : QObject(parent)
+Downloader::Downloader(QObject *parent) : QObject(parent),
+    _downloads()
 {
     _manager = new QNetworkAccessManager(this);
 
@@ -36,50 +38,79 @@ Downloader::~Downloader()
     delete _manager;
 }
 
-void Downloader::get(const QUrl &url)
+QNetworkAccessManager *Downloader::manager()
+{
+    return _manager;
+}
+
+void Downloader::get(const QUrl &url, const QString &destPath)
 {
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::UserAgentHeader, QVariant(USER_AGENT));
 
     _manager->get(request);
+    _downloads.insert(url.fileName(), destPath);
 }
 
-void Downloader::get(const QList<QUrl> &urls)
+void Downloader::get(const QList<QUrl> &urls, const QStringList &destPaths)
 {
     QNetworkRequest *request = 0;
 
-    for (auto url : urls.toStdList())
+    if (urls.size() != destPaths.size())
+        return; // TODO : display an error message
+
+    for (int i = 0 ; i < urls.size() ; i++)
     {
-        request = new QNetworkRequest(url);
+        request = new QNetworkRequest(urls[i]);
         request->setHeader(QNetworkRequest::UserAgentHeader, QVariant(USER_AGENT));
 
         _manager->get(*request);
+        _downloads.insert(urls[i].fileName(), destPaths[i]);
 
         delete request;
     }
 }
 
-void Downloader::post(const QUrl &url, const QByteArray &data)
+void Downloader::post(const QUrl &url, const QByteArray &data, const QString &destPath)
 {
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::UserAgentHeader, QVariant(USER_AGENT));
 
     _manager->post(request, data);
+    _downloads.insert(url.fileName(), destPath);
 }
 
 void Downloader::manageReply(QNetworkReply *reply)
 {
-    QFile f(DOWNLOAD_DIR + "/" + reply->url().fileName());
+    QDir dir;
+    QFile f;
 
     if (reply->error() == QNetworkReply::NoError)
     {
+        if (!_downloads.contains(reply->url().fileName()))
+        {
+            emit downloadFailed(reply);
+
+            return;
+        }
+
+        if (!dir.exists(_downloads.value(reply->url().fileName())))
+            dir.mkpath(_downloads.value(reply->url().fileName()));
+
+        f.setFileName(_downloads.value(reply->url().fileName()) + "/" + reply->url().fileName());
         if (!f.open(QIODevice::WriteOnly))
             return;
 
         f.write(reply->readAll());
         f.close();
     }
+    else
+        emit downloadFailed(reply);
 
     reply->close();
     reply->deleteLater();
+
+    emit downloadFinished(_downloads.value(reply->url().fileName()) + "/" + reply->url().fileName());
+
+    _downloads.remove(reply->url().fileName());
 }

@@ -75,7 +75,7 @@ Modpack *ModpackManager::modpack(const QString &name) const
     return result;
 }
 
-QString ModpackManager::getModpackIni(const QString &name) const
+QString ModpackManager::getModpackSettings(const QString &name) const
 {
     QFile f(MODPACKS_DIR + "/" + name + ".ini");
 

@@ -17,7 +17,8 @@ HEADERS += \
     include/util/listitem.h \
     include/modpacks/modpack.h \
     include/modpacks/modpackmanager.h \
-    include/util/jsonsettings.h
+    include/util/jsonsettings.h \
+    include/net/installer.h
 
 SOURCES += \
     main.cpp \
@@ -29,7 +30,8 @@ SOURCES += \
     src/modpacks/modpack.cpp \
     src/modpacks/modpackmanager.cpp \
     src/util/listitem.cpp \
-    src/util/jsonsettings.cpp
+    src/util/jsonsettings.cpp \
+    src/net/installer.cpp
 
 FORMS += \
     ui/launcher.ui \

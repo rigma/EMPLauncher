@@ -5,7 +5,8 @@ OBJECTS_DIR = obj
 MOC_DIR = moc
 UI_DIR = ../../include/ui
 
-INCLUDEPATH += include
+INCLUDEPATH += include include/libarchive
+win32:LIBS += -Llib -larchive
 
 HEADERS += \
     include/globals.h \
